@@ -1,20 +1,16 @@
-# The main pipeline for dbs_bundle_260922
-
 resources:
   pipelines:
-    dbs_bundle_260922_etl:
-      name: dbs_bundle_260922_etl
-      catalog: ${var.catalog}
-      schema: ${var.schema}
-      serverless: true
-      root_path: "../src/dbs_bundle_260922_etl"
-
+    pipeline_online_retail_sdp:
+      name: online_retail_sdp
       libraries:
         - glob:
-            include: ../src/dbs_bundle_260922_etl/transformations/**
+            include: ../src/online_retail_sdp/transformations/**
+      schema: santol
+      continuous: false
+      development: false
+      photon: true
+      channel: CURRENT
+      catalog: edu260922
+      serverless: true
+      root_path: /Workspace/Users/santol.kim@gmail.com/online_retail_sdp
 
-      environment:
-        dependencies:
-          # We include every dependency defined by pyproject.toml by defining an editable environment
-          # that points to the folder where pyproject.toml is deployed.
-          - --editable ${workspace.file_path}
